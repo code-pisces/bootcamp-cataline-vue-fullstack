@@ -1,20 +1,80 @@
 <template>
-  <Header />
+  <div class="users">
+    <div class="container">
+      <section>
+        <h5 class="title">Novo usuário</h5>
+
+        <form @submit.prevent="createUser">
+          <input type="text" placeholder="Nome" v-model="form.name" />
+          <input type="text" placeholder="E-mail" v-model="form.email" />
+          <button type="submit">Adicionar</button>
+        </form>
+      </section>
+      <section>
+        <h5 class="title">Lista de usuários</h5>
+        <ul>
+          <li v-for="user in users" :key="user.id">
+            <!--Caso não tenha uma key, pode se v-for="(user, index) in users :key="index", pega a posição do elemento no array-->
+            <p>{{ user.name }}</p>
+            <small>{{ user.email }}</small>
+            <a @click="destroyUser(user.id)" class="destroy"></a>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Header from '@/components/Header.vue'
+import axios from '@/utils/axios'
+import { User } from '@/models'
 
 export default defineComponent({
-  components: {
-    Header,
-  },
-
   data() {
     return {
-      name: '',
+      users: [] as User[],
+      form: {
+        name: '',
+        email: '',
+      },
     }
+  }, // hook gancho
+  created() {
+    this.fechUsers()
+  },
+  methods: {
+    async fechUsers() {
+      try {
+        const { data } = await axios.get('/users')
+        this.users = data
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+    async createUser() {
+      try {
+        const { data } = await axios.post('/users', this.form)
+
+        this.users.push(data)
+
+        this.form.name = ''
+        this.form.email = ''
+      } catch (error) {
+        console.warn(error)
+      }
+    },
+    async destroyUser(id: User['id']) {
+      try {
+        await axios.delete(`/users/${id}`)
+
+        const userIndex = this.users.findIndex((user) => user.id === id)
+
+        this.users.splice(userIndex, 1)
+      } catch (error) {
+        console.warn(error)
+      }
+    },
   },
 })
 </script>
