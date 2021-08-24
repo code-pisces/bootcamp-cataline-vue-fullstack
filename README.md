@@ -1,24 +1,27 @@
-# frontend
+<h1 align="center">Conceitos iniciais com Vue.js</h1>
 
-## Project setup
-```
-yarn install
-```
+<p align="center">
+  <img alt="Preview" src="./.github/preview.png">
+</p>
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## ✨ Tecnologias
 
-### Compiles and minifies for production
-```
-yarn build
-```
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-### Lints and fixes files
-```
-yarn lint
-```
+- [Vue](https://vuejs.org/)
+- [Typescript](https://www.typescriptlang.org/)
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 💻 Projeto
+
+Um CRUD com Vue usando a API feita em nodeJS anteriormente.
+
+## 🚀 Como executar
+
+- Clone o repositório
+- Rode `yarn` para baixar as dependências
+- Rode o `yarn dev` para iniciar a aplicação.
+
+Por fim, a aplicação estará disponível em `http://localhost:8080/`.
+
+---
+Feito com 💜 &nbsp;no bootcamp da Cataline 👋🏻 &nbsp;
